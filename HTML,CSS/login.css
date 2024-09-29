@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
+.logo img {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.logo span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+nav {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+}
+
+nav a {
+    margin-left: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.login {
+    color: #333;
+}
+
+.get-started {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+    margin: 50px auto;
+}
+
+.login-box h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-box input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: #00bcd4;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-box p {
+    margin-top: 20px;
+}
+
+.login-box a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.login-box a:hover {
+    text-decoration: underline;
+}
