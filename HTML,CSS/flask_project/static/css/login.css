@@ -86,7 +86,8 @@ nav a {
     color: #333;
 }
 
-.login-box input[type="email"] {
+.login-box input[type="email"],
+.login-box input[type="password"] { /* Style for the password field */
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -123,12 +124,10 @@ nav a {
 .flashes {
     list-style-type: none; /* Remove bullet points */
     padding: 0;           /* Remove padding */
-    margin: 10px 0;      /* Add some margin */
+    margin: 20px 0;      /* Add some margin */
     opacity: 1;          /* Initial opacity */
     transition: opacity 0.5s ease-out; /* Transition for fade effect */
 }
-
-
 
 .flashes li {
     padding: 10px;       /* Add some padding */
@@ -150,5 +149,5 @@ nav a {
 }
 
 .flashes.fade-out {
-    opacity: 10;          /* Set to 0 for fade out */
+    opacity: 0;          /* Set to 0 for fade out */
 }
