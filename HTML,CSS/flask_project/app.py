@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import mysql.connector
 
 app = Flask(__name__)
@@ -39,9 +39,9 @@ def login():
         
         # Check if user exists and verify password
         if user and user['password'] == password:
+            session['user_number'] = user['user_number']  # Store user_number in session
             flash('Login successful!', 'success')
-            # Redirect to another page after successful login
-            return redirect(url_for('display_login'))  # Change this to your desired page
+            return redirect(url_for('home'))  # Redirect to home page
         else:
             flash('Invalid email or password!', 'danger')
         
@@ -49,6 +49,14 @@ def login():
         conn.close()
 
     return render_template('login.html')
+
+# Display the home page
+@app.route('/home', methods=['GET'])
+def home():
+    if 'user_number' not in session:  # Check if the user is logged in
+        flash('You need to log in first!', 'danger')
+        return redirect(url_for('display_login'))  # Redirect to login if not logged in
+    return render_template('home.html')  # Render home.html
 
 # Display the signup page
 @app.route('/signup', methods=['GET', 'POST'])
@@ -93,6 +101,13 @@ def signup():
             conn.close()
 
     return render_template('signup.html')
+
+# Logout route
+@app.route('/logout')
+def logout():
+    session.pop('user_number', None)  # Remove user_number from session
+    flash('You have been logged out!', 'success')
+    return redirect(url_for('display_login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
