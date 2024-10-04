@@ -58,19 +58,36 @@ def signup():
         last_name = request.form['last_name']
         email = request.form['email']
         password = request.form['password']
+        country = request.form['country']
         
-        # Logic to save user details to a database
+        # Connect to the database
         conn = get_db_connect()
         cursor = conn.cursor()
-        
+
         try:
-            cursor.execute("INSERT INTO user_login (email, password) VALUES (%s, %s)", (email, password))
-            conn.commit()
-            flash('Account created successfully!', 'success')
-            return redirect(url_for('display_login'))
+            # Check if the email already exists in user_login
+            cursor.execute("SELECT * FROM user_login WHERE email = %s", (email,))
+            existing_user = cursor.fetchone()
+            
+            if existing_user:
+                flash('Account already exists with this email!', 'danger')
+            else:
+                # Insert email and password into user_login
+                cursor.execute("INSERT INTO user_login (email, password) VALUES (%s, %s)", (email, password))
+                user_id = cursor.lastrowid  # Get the ID of the inserted user
+                
+                # Insert first name, last name, and country into user_details
+                cursor.execute("INSERT INTO user_details (first_name, last_name, country, user_number_login) VALUES (%s, %s, %s, %s)", 
+                               (first_name, last_name, country, user_id))
+                
+                conn.commit()
+                flash('Account created successfully!', 'success')
+                return redirect(url_for('display_login'))
+        
         except mysql.connector.Error as err:
-            flash('Error creating account: {}'.format(err), 'danger')
+            flash(f'Error creating account: {err}', 'danger')
             conn.rollback()
+        
         finally:
             cursor.close()
             conn.close()
