@@ -40,10 +40,9 @@ def login():
         # Check if user exists and verify password
         if user and user['password'] == password:
             session['user_number'] = user['user_number']  # Store user_number in session
-            flash('Login successful!', 'success')
             return redirect(url_for('home'))  # Redirect to home page
         else:
-            flash('Invalid email or password!', 'danger')
+            flash('Invalid email or password!', 'danger')  # Flash only danger messages
         
         cursor.close()
         conn.close()

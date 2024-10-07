@@ -3,9 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Online Library Landing Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
 <body>
-    <h1>Welcome to the Home Page</h1>
+    <header>
+        <div class="logo">
+            <span>LibMaster</span>
+            <img src="{{ url_for('static', filename='images/logo.PNG') }}" alt="LibMaster logo">
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Contact Us</a>
+            <a href="#">About Us</a>
+            <input type="text" placeholder="Search..." class="search-bar">
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="content">
+            <h1>Online Library</h1>
+            <h2>Landing Page</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
+            <a href="#" class="cta-btn">Learn More</a>
+            <div class="slider">
+                <span class="current-slide">01</span>
+                <div class="dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+        <div class="illustration">
+            <img src="" alt="Library Illustration">
+        </div>
+    </section>
 </body>
 </html>

@@ -5,20 +5,27 @@
     font-family: Arial, sans-serif;
 }
 
+/* Body background with image */
 body {
-    background-color: #a19797;
+    background-image: url('/static/images/Background.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    backdrop-filter: blur(5px); /* Optional: Blur the background image */
 }
 
+/* Container styling */
 .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* Header and logo styling */
 header {
     display: flex;
     justify-content: space-between;
@@ -43,9 +50,10 @@ header {
 .logo span {
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #080707;
 }
 
+/* Navigation */
 nav {
     position: absolute;
     top: 50px;
@@ -60,18 +68,22 @@ nav a {
 }
 
 .login {
-    color: #333;
-}
-
-.get-started {
-    background-color: #000;
+    background-color: #00000077;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 30px;
     border-radius: 20px;
 }
 
+.get-started {
+    background-color: #00000077;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 20px;
+}
+
+/* Login box styling */
 .login-box {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.527); /* Slightly transparent white background */
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -86,8 +98,9 @@ nav a {
     color: #333;
 }
 
+/* Input fields */
 .login-box input[type="email"],
-.login-box input[type="password"] { /* Style for the password field */
+.login-box input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -96,6 +109,7 @@ nav a {
     font-size: 16px;
 }
 
+/* Button */
 .login-box button {
     width: 100%;
     padding: 12px;
@@ -107,6 +121,11 @@ nav a {
     cursor: pointer;
 }
 
+.login-box button:hover {
+    background-color: #0097a7;
+}
+
+/* Additional text and links */
 .login-box p {
     margin-top: 20px;
 }
@@ -122,32 +141,32 @@ nav a {
 
 /* Flash messages styles */
 .flashes {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0;           /* Remove padding */
-    margin: 20px 0;      /* Add some margin */
-    opacity: 1;          /* Initial opacity */
-    transition: opacity 0.5s ease-out; /* Transition for fade effect */
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
 }
 
 .flashes li {
-    padding: 10px;       /* Add some padding */
-    border-radius: 5px;  /* Rounded corners */
-    margin-bottom: 10px; /* Space between messages */
-    text-align: center;  /* Center the text */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .flashes li.success {
-    background-color: #d4edda; /* Light green for success */
-    color: #155724;             /* Dark green text */
-    border: 1px solid #c3e6cb;  /* Border to match */
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
 }
 
 .flashes li.danger {
-    background-color: #f8d7da; /* Light red for danger */
-    color: #721c24;            /* Dark red text */
-    border: 1px solid #f5c6cb; /* Border to match */
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
 
 .flashes.fade-out {
-    opacity: 0;          /* Set to 0 for fade out */
+    opacity: 0;
 }
