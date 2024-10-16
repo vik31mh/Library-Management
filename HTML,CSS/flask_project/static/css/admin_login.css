@@ -5,9 +5,8 @@
     font-family: Arial, sans-serif;
 }
 
-/* Body background with image */
 body {
-    background-image: url('/static/images/Background.jpg'); 
+    background-image: url('/static/images/Background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -15,17 +14,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(5px); /* Optional: Blur the background image */
+    backdrop-filter: blur(5px);
 }
 
-/* Container styling */
 .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Header and logo styling */
 header {
     display: flex;
     justify-content: space-between;
@@ -53,7 +50,6 @@ header {
     color: #080707;
 }
 
-/* Navigation */
 nav {
     position: absolute;
     top: 50px;
@@ -67,30 +63,15 @@ nav a {
     font-size: 16px;
 }
 
-.login {
+.login, .get-started, .admin-login {
     background-color: #00000077;
     color: #fff;
     padding: 10px 30px;
     border-radius: 20px;
 }
 
-.get-started {
-    background-color: #00000077;
-    color: #fff;
-    padding: 10px 30px;
-    border-radius: 20px;
-}
-
-.admin-login { 
-    background-color: #00000077;
-    color: #fff;
-    padding: 10px 30px;
-    border-radius: 20px;
-}
-
-/* Login box styling */
 .login-box {
-    background-color: rgba(255, 255, 255, 0.527); /* Slightly transparent white background */
+    background-color: rgba(255, 255, 255, 0.527);
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -105,7 +86,6 @@ nav a {
     color: #333;
 }
 
-/* Input fields */
 .login-box input[type="email"],
 .login-box input[type="password"] {
     width: 100%;
@@ -116,11 +96,10 @@ nav a {
     font-size: 16px;
 }
 
-/* Button */
 .login-box button {
     width: 100%;
     padding: 12px;
-    background-color: #00bcd4;
+    background-color: #ff5722;
     border: none;
     color: #fff;
     font-size: 18px;
@@ -129,16 +108,15 @@ nav a {
 }
 
 .login-box button:hover {
-    background-color: #0097a7;
+    background-color: #e64a19;
 }
 
-/* Additional text and links */
 .login-box p {
     margin-top: 20px;
 }
 
 .login-box a {
-    color: #00bcd4;
+    color: #ff5722;
     text-decoration: none;
 }
 
@@ -146,7 +124,6 @@ nav a {
     text-decoration: underline;
 }
 
-/* Flash messages styles */
 .flashes {
     list-style-type: none;
     padding: 0;

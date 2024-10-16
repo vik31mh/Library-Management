@@ -40,6 +40,7 @@ def login():
         # Check if user exists and verify password
         if user and user['password'] == password:
             session['user_number'] = user['user_number']  # Store user_number in session
+            flash('Successfully logged in!', 'success')
             return redirect(url_for('home'))  # Redirect to home page
         else:
             flash('Invalid email or password!', 'danger')  # Flash only danger messages
@@ -100,6 +101,42 @@ def signup():
             conn.close()
 
     return render_template('signup.html')
+
+# Hardcoded admin credentials
+ADMIN_EMAIL = 'admin@example.com'
+ADMIN_PASSWORD = 'admin123'
+
+@app.route('/adminlogin', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        # Check if the email and password match the admin credentials
+        if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
+            session['admin_logged_in'] = True  # Store admin login state in the session
+            flash('Successfully logged in as admin!', 'success')
+            return redirect(url_for('admin_dashboard'))  # Redirect to the admin dashboard
+        else:
+            flash('Invalid admin email or password!', 'danger')
+
+    return render_template('admin_login.html')
+
+# Admin dashboard route (after login)
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    if not session.get('admin_logged_in'):  # Check if the admin is logged in
+        flash('You need to log in as an admin first!', 'danger')
+        return redirect(url_for('admin_login'))
+    
+    return render_template('admin_dashboard.html')
+
+# Admin logout route
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin_logged_in', None)  # Remove admin session
+    flash('Logged out successfully!', 'success')
+    return redirect(url_for('admin_login'))
 
 # Logout route
 @app.route('/logout')
