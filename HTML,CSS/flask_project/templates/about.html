@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"> <!-- Link to the same CSS file -->
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.PNG') }}" alt="Logo">
+            <span class="company-name">LibMaster</span>
+        </div>
+        <nav>
+            <a href="{{ url_for('home') }}">Dashboard</a>
+            <a href="{{ url_for('search') }}">Search</a>
+            <a href="{{ url_for('book_transaction') }}">Book Transaction</a>
+            <a href="{{ url_for('about') }}">About</a>
+        </nav>
+        <a class="logout" href="#">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>About Us</h1>
+        <p>Content about the library management system goes here.</p>
+    </div>
+</body>
+</html>

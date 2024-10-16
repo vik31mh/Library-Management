@@ -131,6 +131,31 @@ def admin_dashboard():
     
     return render_template('admin_dashboard.html')
 
+# Display the search page
+@app.route('/search', methods=['GET'])
+def search():
+    if 'user_number' not in session:  # Check if the user is logged in
+        flash('You need to log in first!', 'danger')
+        return redirect(url_for('display_login'))  # Redirect to login if not logged in
+    return render_template('search.html')  # Render search.html
+
+# Display the book transaction page
+@app.route('/book_transaction', methods=['GET'])
+def book_transaction():
+    if 'user_number' not in session:  # Check if the user is logged in
+        flash('You need to log in first!', 'danger')
+        return redirect(url_for('display_login'))  # Redirect to login if not logged in
+    return render_template('book_transaction.html')  # Render book_transaction.html
+
+# Display the about page
+@app.route('/about', methods=['GET'])
+def about():
+    if 'user_number' not in session:  # Check if the user is logged in
+        flash('You need to log in first!', 'danger')
+        return redirect(url_for('display_login'))  # Redirect to login if not logged in
+    return render_template('about.html')  # Render about.html
+
+
 # Admin logout route
 @app.route('/admin/logout')
 def admin_logout():
@@ -143,7 +168,7 @@ def admin_logout():
 def logout():
     session.pop('user_number', None)  # Remove user_number from session
     flash('You have been logged out!', 'success')
-    return redirect(url_for('display_login'))
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)

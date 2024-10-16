@@ -3,41 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Library Landing Page</title>
+    <title>Library Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
 <body>
-    <header>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
         <div class="logo">
-            <span>LibMaster</span>
-            <img src="{{ url_for('static', filename='images/logo.PNG') }}" alt="LibMaster logo">
+            <img src="{{ url_for('static', filename='images/logo.PNG') }}" alt="Logo">
+            <span class="company-name">LibMaster</span>
         </div>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Contact Us</a>
-            <a href="#">About Us</a>
-            <input type="text" placeholder="Search..." class="search-bar">
+            <a href="{{ url_for('home') }}">Dashboard</a>
+            <a href="{{ url_for('search') }}">Search</a>
+            <a href="{{ url_for('book_transaction') }}">Book Transaction</a>
+            <a href="{{ url_for('about') }}">About</a>
         </nav>
-    </header>
+        
+    </div>
 
-    <section class="hero">
-        <div class="content">
-            <h1>Online Library</h1>
-            <h2>Landing Page</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
-            <a href="#" class="cta-btn">Learn More</a>
-            <div class="slider">
-                <span class="current-slide">01</span>
-                <div class="dots">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <h2>Dashboard</h2>
+            <a class="logout" href="{{ url_for('logout') }}">Logout</a> <!-- Moved the logout button here -->
+        </div>
+        <div class="welcome">
+            <h1 id="date-display"></h1> <!-- Placeholder for the date -->
+        </div>
+        <div class="stats">
+            <div class="card">
+                <h3>120</h3>
+                <p>Books</p>
+            </div>
+            <div class="card">
+                <h3>1</h3>
+                <p>Book Borrowed</p>
+            </div>
+            <div class="card">
+                <h3>1</h3>
+                <p>Book Returned</p>
+            </div>
+            <div class="card">
+                <h3>0</h3>
+                <p>Book Lost</p>
             </div>
         </div>
-        <div class="illustration">
-            <img src="{{ url_for('static', filename='images/illustration.png') }}" alt="Library Illustration">
-        </div>
-    </section>
+    </div>
+
+    <script>
+        // Display today's date in the welcome section
+        const dateDisplay = document.getElementById('date-display');
+        const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        dateDisplay.textContent = today;
+    </script>
 </body>
 </html>
