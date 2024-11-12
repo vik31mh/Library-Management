@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body background */
+body {
+    background-color: white; /* Plain white background */
+    height: 100vh;
+    display: flex;
+}
+
+/* Sidebar styling */
+.sidebar {
+    width: 250px;
+    background-color: #00bcd4; /* Sky blue for the sidebar */
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column; /* Stack logo and name vertically */
+    align-items: center; /* Center them horizontally */
+}
+
+.logo img {
+    width: 120px; /* Adjust this value to increase/decrease logo size */
+    height: auto; /* Keep aspect ratio */
+    margin-bottom: 20px; /* Space between logo and name */
+}
+
+.logo span {
+    font-size: 24px; /* Adjust size as needed */
+    font-weight: bold;
+    color: #080707; /* Change this to your desired color */
+}
+
+/* Sidebar navigation links */
+nav a {
+    display: block;
+    color: white;
+    padding: 15px 0;
+    text-decoration: none;
+    font-size: 25px;
+    margin-bottom:50px; /* Adjust this value to move buttons up */
+    
+}
+
+nav a:hover {
+    background-color: #0097a7; /* Darker blue hover effect */
+}
+
+/* Logout link */
+.logout {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    border-right: 30px;
+}
+
+.logout:hover {
+    background-color: #0097a7;
+}
+
+/* Main content area */
+.main-content {
+    flex: 1;
+    padding: 0 20px; /* Padding for left and right */
+}
+
+/* Top bar */
+.top-bar {
+    position: absolute; /* Positioning it absolutely */
+    top: 0; /* Aligns it to the top */
+    left: 250px; /* Adjust to the width of your sidebar */
+    width: calc(100% - 250px); /* Full width minus sidebar width */
+    background-color: #00bcd4; /* Sky blue for the top bar */
+    padding: 30px 20px; /* Adjust padding as needed */
+    display: flex;
+    justify-content: space-between; /* Space out content */
+    align-items: center; /* Center vertically */
+}
+
+.top-bar h2 {
+    color: white; /* White text for dashboard title */
+    font-size: 30px;
+}
+/* Logout link */
+.logout {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    border-right: 30px;
+}
+
+.logout:hover {
+    background-color: #0097a7;
+}
+
+.content {
+    padding-top: 200px;
+}
+
+
