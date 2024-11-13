@@ -19,21 +19,20 @@
             <a href="{{ url_for('book_transaction') }}">Book Transaction</a>
             <a href="{{ url_for('about') }}">About</a>
         </nav>
-        
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="top-bar">
             <h2>Dashboard</h2>
-            <a class="logout" href="{{ url_for('logout') }}">Logout</a> <!-- Moved the logout button here -->
+            <a class="logout" href="{{ url_for('logout') }}">Logout</a>
         </div>
         <div class="welcome">
-            <h1 id="date-display"></h1> <!-- Placeholder for the date -->
+            <h1 id="date-display"></h1>
         </div>
         <div class="stats">
             <div class="card">
-                <h3>120</h3>
+                <h3>{{ book_count }}</h3>
                 <p>Books</p>
             </div>
             <div class="card">
@@ -49,13 +48,40 @@
                 <p>Book Lost</p>
             </div>
         </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        {% if category == 'success' %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
     </div>
 
     <script>
-        // Display today's date in the welcome section
+        // Display today's date
         const dateDisplay = document.getElementById('date-display');
         const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         dateDisplay.textContent = today;
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashes = document.querySelectorAll('.flashes li');
+            flashes.forEach((flash) => {
+                setTimeout(() => {
+                    flash.classList.add('fade-out');
+                    setTimeout(() => {
+                        flash.remove();
+                    }, 500);
+                }, 500); // 2-second delay before fading out
+            });
+        });
+    </script>
+    
 </body>
 </html>

@@ -56,7 +56,18 @@ def home():
     if 'user_number' not in session:  # Check if the user is logged in
         flash('You need to log in first!', 'danger')
         return redirect(url_for('display_login'))  # Redirect to login if not logged in
-    return render_template('home.html')  # Render home.html
+    
+    # Get the count of books from the database
+    conn = get_db_connect()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM books")  # Query to count books in the table
+    book_count = cursor.fetchone()[0]  # Fetch the result and get the count
+    
+    cursor.close()
+    conn.close()
+    
+    return render_template('home.html', book_count=book_count)  # Pass the book count to the template
+
 
 # Display the signup page
 @app.route('/signup', methods=['GET', 'POST'])
@@ -168,7 +179,7 @@ def admin_logout():
 def logout():
     session.pop('user_number', None)  # Remove user_number from session
     flash('You have been logged out!', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('display_login'))  # Redirect to login page after logout
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -8,13 +8,15 @@
 </head>
 <body>
     <div class="container">
-        <!-- Flash messages -->
+        <!-- Flash Messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <ul class="flashes">
                     {% for category, message in messages %}
-                        {% if category == 'danger' %}
+                        {% if category == 'success' %}
                             <li class="{{ category }}">{{ message }}</li>
+                        {% elif category == 'danger' %}
+                            <li class="{{ category }}">{{ message }}</li>  <!-- This handles danger messages -->
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -27,7 +29,6 @@
                 <span>LibMaster</span>
             </div>
             <nav>
-                
                 <a href="/login" class="login">Login</a>
                 <a href="/signup" class="get-started">Get Started</a>
                 <a href="/adminlogin" class="admin-login">Admin Login</a>
@@ -52,9 +53,9 @@
                 setTimeout(() => {
                     flash.classList.add('fade-out');
                     setTimeout(() => {
-                        flash.remove(); // Remove the element after fade out
-                    }, 500); // Match this time with the CSS transition duration
-                }, 300); // Time in milliseconds before starting to fade out 
+                        flash.remove();
+                    }, 500);
+                }, 300);
             });
         });
     </script>
