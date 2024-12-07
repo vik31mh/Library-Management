@@ -142,7 +142,7 @@ def admin_dashboard():
     
     return render_template('admin_dashboard.html')
 
-# Display the search page
+#display the search page
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if 'user_number' not in session:  # Check if the user is logged in
@@ -154,11 +154,15 @@ def search():
 
     books = []  # Initialize books list
 
-    # If it's a POST request (searching)
+    # If it's a POST request (searching or resetting)
     if request.method == 'POST':
         search_term = request.form.get('search_term', '').strip()  # Get the search term and strip spaces
         
-        # Only search if a term is entered
+        if request.form.get('reset'):  # If the reset button was pressed
+            # Reset the search (clear search term)
+            return redirect(url_for('search'))  # Redirect to GET request to show all books
+        
+        # If there’s a search term, perform the search
         if search_term:
             cursor.execute("""
                 SELECT * FROM books
@@ -170,13 +174,14 @@ def search():
         else:
             flash('Please enter a search term.', 'warning')  # Flash message if no search term is entered
     else:
-        cursor.execute("SELECT * FROM books")
+        cursor.execute("SELECT * FROM books")  # For GET request, get all books
         books = cursor.fetchall()
 
     cursor.close()
     conn.close()
 
     return render_template('search.html', books=books)  # Render the search page with the books
+
 
 
 # Display the book transaction page

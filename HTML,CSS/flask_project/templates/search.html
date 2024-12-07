@@ -33,7 +33,7 @@
             <form method="POST" action="{{ url_for('search') }}">
                 <input type="text" name="search_term" class="search-bar" id="search_term" placeholder="Search books" value="{{ request.form['search_term'] if request.method == 'POST' else '' }}">
                 <button type="submit" class="search-btn">Search</button>
-                <button type="reset" class="reset-btn" onclick="resetForm()">Reset</button>
+                <button type="submit" class="reset-btn" name="reset" value="true">Reset</button>
             </form>
             
         </div>
