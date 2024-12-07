@@ -60,13 +60,24 @@ def home():
     # Get the count of books from the database
     conn = get_db_connect()
     cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM books")  # Query to count books in the table
-    book_count = cursor.fetchone()[0]  # Fetch the result and get the count
+
+    # Count the total number of books
+    cursor.execute("SELECT COUNT(*) FROM books")
+    book_count = cursor.fetchone()[0]
+
+    # Count the number of borrowed books (where returned = 0)
+    cursor.execute("SELECT COUNT(*) FROM borrowed_books WHERE returned = 0")
+    borrowed_count = cursor.fetchone()[0]
+
+    # Count the number of returned books (where returned = 1)
+    cursor.execute("SELECT COUNT(*) FROM borrowed_books WHERE returned = 1")
+    returned_count = cursor.fetchone()[0]
     
     cursor.close()
     conn.close()
-    
-    return render_template('home.html', book_count=book_count)  # Pass the book count to the template
+
+    return render_template('home.html', book_count=book_count, borrowed_count=borrowed_count, returned_count=returned_count)
+
 
 
 # Display the signup page
