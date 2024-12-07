@@ -1,0 +1,42 @@
+<div class="main-content">
+    <div class="top-bar">
+        <h2>Book Transactions</h2>
+        <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Authors</th>
+                    <th>Publisher</th>
+                    <th>Returned Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in borrowed_books %}
+                <tr>
+                    <td>{{ book[0] }}</td>
+                    <td>{{ book[1] }}</td>
+                    <td>{{ book[2] }}</td>
+                    <td>{{ book[3] }}</td>
+                    <td>{{ 'Returned' if book[4] else 'Not Returned' }}</td>
+                    <td>
+                        {% if not book[4] %}
+                        <form action="{{ url_for('return_book', book_id=book[0]) }}" method="POST">
+                            <button type="submit" class="return-btn">Return</button>
+                        </form>
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

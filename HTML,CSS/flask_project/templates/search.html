@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.PNG') }}" alt="Logo">
+            <span class="company-name">LibMaster</span>
+        </div>
+        <nav>
+            <a href="{{ url_for('home') }}">Dashboard</a>
+            <a href="{{ url_for('search') }}">Search</a>
+            <a href="{{ url_for('book_transaction') }}">Book Transaction</a>
+            <a href="{{ url_for('about') }}">About</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <h2>Search Books</h2>
+            <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <form method="POST" action="{{ url_for('search') }}">
+                <input type="text" name="search_term" class="search-bar" id="search_term" placeholder="Search books" value="{{ request.form['search_term'] if request.method == 'POST' else '' }}">
+                <button type="submit" class="search-btn">Search</button>
+                <button type="reset" class="reset-btn" onclick="resetForm()">Reset</button>
+            </form>
+            
+        </div>
+
+        <!-- Table displaying books -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Action</th> <!-- Added Action column -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.book_id }}</td>
+                    <td>{{ book.book_name }}</td>
+                    <td>{{ book.authors }}</td>
+                    <td>{{ book.publisher }}</td>
+                    <td><button class="borrow-btn">Borrow</button></td> <!-- Borrow button -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

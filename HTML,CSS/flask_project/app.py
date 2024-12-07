@@ -143,12 +143,41 @@ def admin_dashboard():
     return render_template('admin_dashboard.html')
 
 # Display the search page
-@app.route('/search', methods=['GET'])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     if 'user_number' not in session:  # Check if the user is logged in
         flash('You need to log in first!', 'danger')
         return redirect(url_for('display_login'))  # Redirect to login if not logged in
-    return render_template('search.html')  # Render search.html
+    
+    conn = get_db_connect()
+    cursor = conn.cursor(dictionary=True)
+
+    books = []  # Initialize books list
+
+    # If it's a POST request (searching)
+    if request.method == 'POST':
+        search_term = request.form.get('search_term', '').strip()  # Get the search term and strip spaces
+        
+        # Only search if a term is entered
+        if search_term:
+            cursor.execute("""
+                SELECT * FROM books
+                WHERE book_name LIKE %s
+            """, ('%' + search_term + '%',))  # Use LIKE for partial match
+            books = cursor.fetchall()  # Fetch the matching books
+            if not books:
+                flash('No books found matching your search.', 'info')  # No results found
+        else:
+            flash('Please enter a search term.', 'warning')  # Flash message if no search term is entered
+    else:
+        cursor.execute("SELECT * FROM books")
+        books = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template('search.html', books=books)  # Render the search page with the books
+
 
 # Display the book transaction page
 @app.route('/book_transaction', methods=['GET'])
@@ -157,6 +186,7 @@ def book_transaction():
         flash('You need to log in first!', 'danger')
         return redirect(url_for('display_login'))  # Redirect to login if not logged in
     return render_template('book_transaction.html')  # Render book_transaction.html
+
 
 # Display the about page
 @app.route('/about', methods=['GET'])
