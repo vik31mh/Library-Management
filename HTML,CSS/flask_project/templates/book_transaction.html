@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Transactions</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/book_transaction.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <!-- Sidebar -->
@@ -37,20 +38,69 @@
                     <th>Author</th>
                     <th>Publisher</th>
                     <th>Status</th>
+                    <th>Action</th> <!-- Added Action column for Return button -->
                 </tr>
             </thead>
             <tbody>
                 {% for book in borrowed_books %}
-                <tr>
+                <tr id="row-{{ book.borrow_id }}">
                     <td>{{ book.borrow_id }}</td>
                     <td>{{ book.book_name }}</td>
                     <td>{{ book.authors }}</td>
                     <td>{{ book.publisher }}</td>
-                    <td>{{ 'Returned' if book.returned == 1 else 'Not Returned' }}</td>
+                    <td class="status" id="status-{{ book.borrow_id }}">
+                        {{ 'Returned' if book.returned == 1 else 'Not Returned' }}
+                    </td>
+                    <td>
+                        {% if book.returned == 0 %}
+                        <button class="return-btn" data-borrow-id="{{ book.borrow_id }}">Return</button>
+                        {% else %}
+                        <span>Returned</span>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+
+    <!-- Success popup -->
+    <div id="popup" style="display:none; position: fixed; top: 20%; left: 50%; transform: translateX(-50%); background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px;">
+        Book returned successfully!
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Handle Return button click
+            $(".return-btn").click(function() {
+                var borrowId = $(this).data('borrow-id');
+                var statusCell = $("#status-" + borrowId);
+
+                // If the book is already returned, do nothing
+                if (statusCell.text() === 'Returned') {
+                    return;
+                }
+
+                // Make an AJAX request to return the book
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url_for('return_book') }}",
+                    data: { borrow_id: borrowId },
+                    success: function(response) {
+                        // Update the status in the table
+                        statusCell.text('Returned');
+                        // Hide the return button
+                        $("button[data-borrow-id='" + borrowId + "']").replaceWith("<span>Returned</span>");
+
+                        // Show success popup
+                        $("#popup").fadeIn().delay(2000).fadeOut();
+                    },
+                    error: function() {
+                        alert("An error occurred while returning the book.");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

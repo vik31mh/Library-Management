@@ -97,7 +97,7 @@ nav a:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top:180px;
+    margin-top: 150px;
     background-color: #ecf0f1;
 }
 
@@ -145,4 +145,19 @@ button.btn-danger {
 
 button.btn-danger:hover {
     background-color: #c0392b;
+}
+
+/* New column for 'Return' button */
+.return-btn {
+    background-color: #3ce1e7; /* Red for return button */
+    color: black;
+    font-size: 14px;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.return-btn:hover {
+    background-color: #0097a7; /* Darker blue on hover */
 }

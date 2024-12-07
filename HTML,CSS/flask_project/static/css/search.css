@@ -143,16 +143,18 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-button.borrow {
-    background-color: #00bcd4; /* Sky blue for the button */
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.borrow-btn {
+        background-color: #3ce1e7; /* Red for return button */
+        color: black;
+        font-size: 14px;
+        padding: 8px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    
 }
 
-button.borrow:hover {
+.borrow-btn:hover {
     background-color: #0097a7; /* Darker blue on hover */
 }
 /* Add to the existing CSS for styling the reset button */

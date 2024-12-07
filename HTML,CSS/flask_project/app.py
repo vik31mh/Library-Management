@@ -210,9 +210,19 @@ def borrow_book():
 
     return jsonify({'success': True})
 
-
-
-
+@app.route('/return_book', methods=['POST'])
+def return_book():
+    borrow_id = request.form['borrow_id']
+    try:
+        # Update the borrowed_books table to mark the book as returned
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE borrowed_books SET returned = 1 WHERE borrow_id = %s", (borrow_id,))
+        mysql.connection.commit()
+        cur.close()
+        return 'Success', 200
+    except Exception as e:
+        print(f"Error: {e}")
+        return 'Error', 500
 
 
 
