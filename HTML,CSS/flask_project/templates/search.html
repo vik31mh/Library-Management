@@ -35,7 +35,6 @@
                 <button type="submit" class="search-btn">Search</button>
                 <button type="submit" class="reset-btn" name="reset" value="true">Reset</button>
             </form>
-            
         </div>
 
         <!-- Table displaying books -->
@@ -56,11 +55,40 @@
                     <td>{{ book.book_name }}</td>
                     <td>{{ book.authors }}</td>
                     <td>{{ book.publisher }}</td>
-                    <td><button class="borrow-btn">Borrow</button></td> <!-- Borrow button -->
+                    <td><button class="borrow-btn" data-book-id="{{ book.book_id }}">Borrow</button></td> <!-- Borrow button -->
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+
+    <script>
+        // Handle the Borrow button click using AJAX
+        document.querySelectorAll('.borrow-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const bookId = this.getAttribute('data-book-id');
+                
+                fetch('/borrow_book', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ book_id: bookId }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Book borrowed successfully!');
+                    } else {
+                        alert('Error borrowing book: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Something went wrong!');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

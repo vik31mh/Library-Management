@@ -1,3 +1,4 @@
+/* Reset styles */
 * {
     margin: 0;
     padding: 0;
@@ -48,7 +49,7 @@ nav a {
     padding: 15px 0;
     text-decoration: none;
     font-size: 25px;
-    margin-bottom:50px; /* Adjust this value to move buttons up */
+    margin-bottom: 50px; /* Adjust this value to move buttons up */
 }
 
 nav a:hover {
@@ -92,52 +93,56 @@ nav a:hover {
     font-size: 30px;
 }
 
-/* Table styling */
-.table-container {
-    margin-top: 100px; /* Space between top bar and table */
-    padding: 20px;
-}
-
+/* Table styles */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top:180px;
+    background-color: #ecf0f1;
 }
 
-th, td {
+table th, table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-th {
-    background-color: #00bcd4; /* Sky blue for header */
+table th {
+    background-color: #00bcd4; /* Sky blue header */
     color: white;
-    font-size: 18px;
 }
 
-td {
-    font-size: 16px;
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-/* Return button styling */
-.return-btn {
-    background-color: #4CAF50; /* Green button */
-    color: white;
+table tr:hover {
+    background-color: #ddd;
+}
+
+/* Button styles */
+button {
+    padding: 10px 20px;
+    font-size: 14px;
     border: none;
-    padding: 8px 16px;
     cursor: pointer;
-    font-size: 16px;
+    border-radius: 4px;
 }
 
-.return-btn:hover {
-    background-color: #45a049; /* Darker green when hovered */
+button.btn-primary {
+    background-color: #3498db;
+    color: white;
 }
 
-/* Make the table responsive */
-@media (max-width: 768px) {
-    th, td {
-        padding: 8px;
-        font-size: 14px;
-    }
+button.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+button.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+button.btn-danger:hover {
+    background-color: #c0392b;
 }

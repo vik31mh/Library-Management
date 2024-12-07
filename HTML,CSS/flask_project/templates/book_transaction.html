@@ -1,42 +1,56 @@
-<div class="main-content">
-    <div class="top-bar">
-        <h2>Book Transactions</h2>
-        <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Transactions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/book_transaction.css') }}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.PNG') }}" alt="Logo">
+            <span class="company-name">LibMaster</span>
+        </div>
+        <nav>
+            <a href="{{ url_for('home') }}">Dashboard</a>
+            <a href="{{ url_for('search') }}">Search</a>
+            <a href="{{ url_for('book_transaction') }}">Book Transaction</a>
+            <a href="{{ url_for('about') }}">About</a>
+        </nav>
     </div>
 
-    <!-- Table Section -->
-    <div class="table-container">
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <h2>Book Transactions</h2>
+            <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+
+        <!-- Table displaying borrowed books -->
         <table>
             <thead>
                 <tr>
-                    <th>Book ID</th>
+                    <th>Borrow ID</th>
                     <th>Book Name</th>
-                    <th>Authors</th>
+                    <th>Author</th>
                     <th>Publisher</th>
-                    <th>Returned Status</th>
-                    <th>Actions</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 {% for book in borrowed_books %}
                 <tr>
-                    <td>{{ book[0] }}</td>
-                    <td>{{ book[1] }}</td>
-                    <td>{{ book[2] }}</td>
-                    <td>{{ book[3] }}</td>
-                    <td>{{ 'Returned' if book[4] else 'Not Returned' }}</td>
-                    <td>
-                        {% if not book[4] %}
-                        <form action="{{ url_for('return_book', book_id=book[0]) }}" method="POST">
-                            <button type="submit" class="return-btn">Return</button>
-                        </form>
-                        {% else %}
-                        N/A
-                        {% endif %}
-                    </td>
+                    <td>{{ book.borrow_id }}</td>
+                    <td>{{ book.book_name }}</td>
+                    <td>{{ book.authors }}</td>
+                    <td>{{ book.publisher }}</td>
+                    <td>{{ 'Returned' if book.returned == 1 else 'Not Returned' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-</div>
+</body>
+</html>

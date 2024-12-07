@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session , jsonify
 import mysql.connector
 
 app = Flask(__name__)
@@ -143,6 +143,7 @@ def admin_dashboard():
     return render_template('admin_dashboard.html')
 
 #display the search page
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if 'user_number' not in session:  # Check if the user is logged in
@@ -182,15 +183,65 @@ def search():
 
     return render_template('search.html', books=books)  # Render the search page with the books
 
+# Route to handle book borrowing via AJAX
+@app.route('/borrow_book', methods=['POST'])
+def borrow_book():
+    if 'user_number' not in session:  # Check if the user is logged in
+        return jsonify({'success': False, 'message': 'You need to log in first!'})
+
+    data = request.get_json()  # Get the JSON data from the request
+    book_id = data.get('book_id')
+    user_number = session['user_number']  # Get the logged-in user's ID
+
+    if not book_id:
+        return jsonify({'success': False, 'message': 'No book selected!'})
+
+    # Insert the borrowed book into the borrowed_books table
+    conn = get_db_connect()
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO borrowed_books (user_number, book_id, returned)
+        VALUES (%s, %s, %s)
+    """, (user_number, book_id, 0))  # Default returned value is 0 (not returned yet)
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return jsonify({'success': True})
+
+
+
+
+
 
 
 # Display the book transaction page
-@app.route('/book_transaction', methods=['GET'])
+@app.route('/book_transaction')
 def book_transaction():
     if 'user_number' not in session:  # Check if the user is logged in
         flash('You need to log in first!', 'danger')
         return redirect(url_for('display_login'))  # Redirect to login if not logged in
-    return render_template('book_transaction.html')  # Render book_transaction.html
+    
+    conn = get_db_connect()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT borrowed_books.borrow_id, books.book_name, books.authors, books.publisher, borrowed_books.returned
+        FROM borrowed_books
+        JOIN books ON borrowed_books.book_id = books.book_id
+        WHERE borrowed_books.user_number = %s
+    """, (session['user_number'],))  # Get the books borrowed by the logged-in user
+
+    borrowed_books = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template('book_transaction.html', borrowed_books=borrowed_books)
+
+
+
 
 
 # Display the about page
