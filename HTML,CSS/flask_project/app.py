@@ -306,23 +306,42 @@ def logout():
     return redirect(url_for('display_login'))  # Redirect to login page after logout
 
 # Route to display the Add New Books page
-@app.route('/admin/add_books', methods=['GET', 'POST'])
+@app.route('/add_books', methods=['GET', 'POST'])
 def add_books():
-    if not session.get('admin_logged_in'):  # Check if the admin is logged in
-        flash('You need to log in as an admin first!', 'danger')
-        return redirect(url_for('admin_login'))
-    
+    if request.method == 'POST':
+        # Get form data
+        book_name = request.form['book_name']
+        author = request.form['author']
+        publisher = request.form['publisher']
+        
+        # Connect to the database
+        conn = get_db_connect()
+        cursor = conn.cursor()
+
+        try:
+            # Insert book details into the books table
+            cursor.execute("""
+                INSERT INTO books (book_name, authors, publisher) 
+                VALUES (%s, %s, %s)
+            """, (book_name, author, publisher))
+            conn.commit()
+
+            
+
+        except mysql.connector.Error as err:
+            flash(f'Error adding book: {err}', 'danger')
+            conn.rollback()
+
+        finally:
+            cursor.close()
+            conn.close()
+
     return render_template('add_books.html')
+
+
 
 
 if __name__ == '__main__':
     app.run(debug=True)
 
-# Route to display the Add New Books page
-@app.route('/admin/add_books', methods=['GET', 'POST'])
-def add_books():
-    if not session.get('admin_logged_in'):  # Check if the admin is logged in
-        flash('You need to log in as an admin first!', 'danger')
-        return redirect(url_for('admin_login'))
-    
-    return render_template('add_books.html')
+
