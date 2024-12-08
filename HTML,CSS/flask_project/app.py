@@ -291,12 +291,6 @@ def about():
     return render_template('about.html')  # Render about.html
 
 
-# Admin logout route
-@app.route('/admin/logout')
-def admin_logout():
-    session.pop('admin_logged_in', None)  # Remove admin session
-    flash('Logged out successfully!', 'success')
-    return redirect(url_for('admin_login'))
 
 # Logout route
 @app.route('/logout')
@@ -366,7 +360,7 @@ def user_details():
     return render_template('user_details.html', user_details=user_details)
 
 
-@app.route('/book_records', methods=['GET'])
+@app.route('/transaction', methods=['GET'])
 def book_records():
     if 'user_number' not in session:  # Check if the user is logged in
         flash('You need to log in first!', 'danger')
@@ -388,8 +382,35 @@ def book_records():
     cursor.close()
     conn.close()
 
-    return render_template('book_records.html', book_records=book_records)
+    return render_template('transaction.html', book_records=book_records)
 
+@app.route('/book_details', methods=['GET'])
+def book_details():
+    if 'user_number' not in session:  # Check if the user is logged in
+        flash('You need to log in first!', 'danger')
+        return redirect(url_for('display_login'))  # Redirect to login if not logged in
+
+    # Fetch book records from the books table
+    conn = get_db_connect()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT book_id, book_name, authors, publisher
+        FROM books
+    """)
+
+    book_records = cursor.fetchall()  # Fetch all records from the books table
+
+    cursor.close()
+    conn.close()
+
+    return render_template('book_details.html', book_records=book_records)
+
+@app.route('/admin_logout', methods=['GET'])
+def admin_logout():
+    session.pop('admin_logged_in', None)  # Remove the session key for admin login
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('admin_login'))  # Redirect to the admin login page
 
 
 if __name__ == '__main__':
