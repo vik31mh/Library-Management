@@ -16,7 +16,10 @@ db_config = {
 def get_db_connect():
     conn = mysql.connector.connect(**db_config)
     return conn
-#hi
+
+
+#USER
+
 # Display the login page
 @app.route('/', methods=['GET'])
 def display_login():
@@ -86,9 +89,6 @@ def home():
 
     return render_template('home.html', book_count=book_count, borrowed_count=borrowed_count, returned_count=returned_count)
 
-
-
-
 # Display the signup page
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -133,37 +133,7 @@ def signup():
 
     return render_template('signup.html')
 
-# Hardcoded admin credentials
-ADMIN_EMAIL = 'admin@example.com'
-ADMIN_PASSWORD = 'admin123'
-
-@app.route('/adminlogin', methods=['GET', 'POST'])
-def admin_login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-
-        # Check if the email and password match the admin credentials
-        if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
-            session['admin_logged_in'] = True  # Store admin login state in the session
-            flash('Successfully logged in as admin!', 'success')
-            return redirect(url_for('admin_dashboard'))  # Redirect to the admin dashboard
-        else:
-            flash('Invalid admin email or password!', 'danger')
-
-    return render_template('admin_login.html')
-
-# Admin dashboard route (after login)
-@app.route('/admin/dashboard')
-def admin_dashboard():
-    if not session.get('admin_logged_in'):  # Check if the admin is logged in
-        flash('You need to log in as an admin first!', 'danger')
-        return redirect(url_for('admin_login'))
-    
-    return render_template('admin_dashboard.html')
-
 #display the search page
-
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if 'user_number' not in session:  # Check if the user is logged in
@@ -299,6 +269,40 @@ def logout():
     flash('You have been logged out!', 'success')
     return redirect(url_for('display_login'))  # Redirect to login page after logout
 
+#ADMIN
+
+
+# Hardcoded admin credentials
+ADMIN_EMAIL = 'admin@example.com'
+ADMIN_PASSWORD = 'admin123'
+
+@app.route('/adminlogin', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        # Check if the email and password match the admin credentials
+        if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
+            session['admin_logged_in'] = True  # Store admin login state in the session
+            flash('Successfully logged in as admin!', 'success')
+            return redirect(url_for('admin_dashboard'))  # Redirect to the admin dashboard
+        else:
+            flash('Invalid admin email or password!', 'danger')
+
+    return render_template('admin_login.html')
+
+# Admin dashboard route (after login)
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    if not session.get('admin_logged_in'):  # Check if the admin is logged in
+        flash('You need to log in as an admin first!', 'danger')
+        return redirect(url_for('admin_login'))
+    
+    return render_template('admin_dashboard.html')
+
+
+
 # Route to display the Add New Books page
 @app.route('/add_books', methods=['GET', 'POST'])
 def add_books():
@@ -332,6 +336,7 @@ def add_books():
 
     return render_template('add_books.html')
 
+# Route to display the User Details page
 @app.route('/user_details', methods=['GET'])
 def user_details():
     if 'user_number' not in session:  # Check if the user is logged in
@@ -360,6 +365,7 @@ def user_details():
     return render_template('user_details.html', user_details=user_details)
 
 
+# Route to display the Transaction page
 @app.route('/transaction', methods=['GET'])
 def book_records():
     if 'user_number' not in session:  # Check if the user is logged in
@@ -384,6 +390,7 @@ def book_records():
 
     return render_template('transaction.html', book_records=book_records)
 
+# Route to display the Book Details page
 @app.route('/book_details', methods=['GET'])
 def book_details():
     if 'user_number' not in session:  # Check if the user is logged in
@@ -406,6 +413,7 @@ def book_details():
 
     return render_template('book_details.html', book_records=book_records)
 
+#Logout Admin
 @app.route('/admin_logout', methods=['GET'])
 def admin_logout():
     session.pop('admin_logged_in', None)  # Remove the session key for admin login
