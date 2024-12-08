@@ -16,7 +16,7 @@ db_config = {
 def get_db_connect():
     conn = mysql.connector.connect(**db_config)
     return conn
-
+#hi
 # Display the login page
 @app.route('/', methods=['GET'])
 def display_login():
