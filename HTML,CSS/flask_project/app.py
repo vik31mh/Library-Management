@@ -305,5 +305,24 @@ def logout():
     flash('You have been logged out!', 'success')
     return redirect(url_for('display_login'))  # Redirect to login page after logout
 
+# Route to display the Add New Books page
+@app.route('/admin/add_books', methods=['GET', 'POST'])
+def add_books():
+    if not session.get('admin_logged_in'):  # Check if the admin is logged in
+        flash('You need to log in as an admin first!', 'danger')
+        return redirect(url_for('admin_login'))
+    
+    return render_template('add_books.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+# Route to display the Add New Books page
+@app.route('/admin/add_books', methods=['GET', 'POST'])
+def add_books():
+    if not session.get('admin_logged_in'):  # Check if the admin is logged in
+        flash('You need to log in as an admin first!', 'danger')
+        return redirect(url_for('admin_login'))
+    
+    return render_template('add_books.html')
