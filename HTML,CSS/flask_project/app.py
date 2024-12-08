@@ -338,6 +338,57 @@ def add_books():
 
     return render_template('add_books.html')
 
+@app.route('/user_details', methods=['GET'])
+def user_details():
+    if 'user_number' not in session:  # Check if the user is logged in
+        flash('You need to log in first!', 'danger')
+        return redirect(url_for('display_login'))  # Redirect to login if not logged in
+    
+    user_number = session['user_number']  # Get the logged-in user's number
+
+    # Fetch user details from both user_details and user_login tables
+    conn = get_db_connect()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT u.user_number, u.first_name, u.last_name, u.country, l.Email
+        FROM user_details u
+        JOIN user_login l ON u.user_number = l.user_number
+        """)
+
+    user_details = cursor.fetchall()  # Use fetchall() to retrieve all matching users
+    
+    print(f"Fetched user details: {user_details}")  # Check the fetched data
+
+    cursor.close()
+    conn.close()
+
+    return render_template('user_details.html', user_details=user_details)
+
+
+@app.route('/book_records', methods=['GET'])
+def book_records():
+    if 'user_number' not in session:  # Check if the user is logged in
+        flash('You need to log in first!', 'danger')
+        return redirect(url_for('display_login'))  # Redirect to login if not logged in
+
+    # Fetch book records from borrowed_books, books, and user_login tables
+    conn = get_db_connect()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT bb.user_number, ul.Email, bb.book_id, b.book_name, bb.returned
+        FROM borrowed_books bb
+        JOIN books b ON bb.book_id = b.book_id
+        JOIN user_login ul ON bb.user_number = ul.user_number
+    """)
+
+    book_records = cursor.fetchall()  # Fetch all records matching the query
+
+    cursor.close()
+    conn.close()
+
+    return render_template('book_records.html', book_records=book_records)
 
 
 

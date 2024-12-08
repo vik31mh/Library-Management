@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Details</title>
+    <title>Book Records</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,7 +42,7 @@
         }
 
         table th {
-            background-color:  #00bcd4;
+            background-color: #00bcd4;
             color: white;
         }
 
@@ -58,29 +58,29 @@
 </head>
 <body>
     <header>
-        <h1>User Details</h1>
+        <h1>Book Records</h1>
     </header>
 
     <div class="container">
-        <h2>Registered Users</h2>
+        <h2>Borrowed Book Records</h2>
         <table>
             <thead>
                 <tr>
                     <th>User Number</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Country</th>
-                    <th>Email</th>
+                    <th>User Email</th>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Returned Status</th>
                 </tr>
             </thead>
             <tbody>
-                {% for user in user_details %}
+                {% for record in book_records %}
                 <tr>
-                    <td>{{ user.user_number }}</td>
-                    <td>{{ user.first_name }}</td>
-                    <td>{{ user.last_name }}</td>
-                    <td>{{ user.country }}</td>
-                    <td>{{ user.Email }}</td>
+                    <td>{{ record.user_number }}</td>
+                    <td>{{ record.Email }}</td>
+                    <td>{{ record.book_id }}</td>
+                    <td>{{ record.book_name }}</td>
+                    <td>{{ 'Returned' if record.returned else 'Not Returned' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
