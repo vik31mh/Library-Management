@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="admin_dashboard.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
 </head>
 <body>
     <div class="dashboard">
-       
         <!-- Main Content -->
         <main class="main-content">
             <header class="header">
@@ -16,11 +15,11 @@
                 <a href="logout.html" class="logout-btn">Logout</a>
             </header>
             <div class="content">
-               
                 <div class="card">
                     <h3>Add New Books</h3>
                     <p>Add details of newly acquired books.</p>
-                    <a href="#">Go to Section</a>
+                    <!-- Link to Add Books page -->
+                    <a href="/admin/add_books">Go to Section</a>
                 </div>
                 <br>
                 <div class="card">
