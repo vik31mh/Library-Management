@@ -3,32 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}"> <!-- Link to the same CSS file -->
+    <title>About - Library Management System project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #4CAF50;
+        }
+
+        .key-features, .technology-stack, .future-enhancements {
+            margin: 20px 0;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='images/logo.PNG') }}" alt="Logo">
-            <span class="company-name">LibMaster</span>
-        </div>
-        <nav>
-            <a href="{{ url_for('home') }}">Dashboard</a>
-            <a href="{{ url_for('search') }}">Search</a>
-            <a href="{{ url_for('book_transaction') }}">Book Transaction</a>
-            <a href="{{ url_for('about') }}">About</a>
-        </nav>
-        
-    </div>
+    <header>
+        <h1>About Library Management System</h1>
+    </header>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="top-bar">
-            <h2>About Us</h2>
-            <a class="logout" href="{{ url_for('logout') }}">Logout</a>
-        </div>
-        <p class="content">Content about the library management system goes here.</p>
+    <div class="container">
+        <section>
+            <h2>About This Project</h2>
+            <p>
+                Welcome to the <strong>Library Management System</strong>, a mini-project developed by
+                <strong>Navneeth</strong> and <strong>Vikas</strong>, students of the <strong>5th Semester</strong>.
+                This system is designed to simplify and enhance the management of library resources, making it easier
+                for users to search, borrow, and manage books efficiently.
+            </p>
+        </section>
+
+        <section class="key-features">
+            <h2>Key Features</h2>
+            <ul>
+                <li><strong>Book Search and Availability:</strong> Search for books by title, author, or genre, and check availability.</li>
+                <li><strong>AI Chatbot Integration:</strong> An AI-powered chatbot helps users with library-related queries.</li>
+                <li><strong>User Management:</strong> Maintain a database of members and track borrowing history.</li>
+                <li><strong>Responsive Design:</strong> Ensures usability across various devices.</li>
+            </ul>
+        </section>
+
+        <section class="technology-stack">
+            <h2>Technology Stack</h2>
+            <ul>
+                <li><strong>Frontend:</strong> HTML, CSS</li>
+                <li><strong>Backend:</strong> Python, Flask</li>
+                <li><strong>Database:</strong> SQL</li>
+                <li><strong>AI Integration:</strong> OpenAI GPT for chatbot functionality</li>
+            </ul>
+        </section>
+
+        <section class="journey">
+            <h2>Our Journey</h2>
+            <p>
+                This project was developed as part of our <strong>5th Semester Mini-Project</strong>. Through this journey, we:
+            </p>
+            <ul>
+                <li>Enhanced our skills in web development and database management.</li>
+                <li>Gained experience in integrating AI-powered tools into practical applications.</li>
+                <li>Worked collaboratively to design, implement, and test the system.</li>
+            </ul>
+        </section>
+
+        <section class="future-enhancements">
+            <h2>Future Enhancements</h2>
+            <ul>
+                <li>Adding an <strong>admin dashboard</strong> for better management.</li>
+                <li>Implementing <strong>SMS/email notifications</strong> for overdue books.</li>
+                <li>Integrating advanced AI features like <strong>personalized book recommendations</strong>.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>
+                <strong>Developed By:</strong> Navneeth and Vikas <br>
+                <strong>5th Semester Students</strong>
+            </p>
+        </footer>
     </div>
 </body>
 </html>
