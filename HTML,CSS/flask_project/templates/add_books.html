@@ -104,42 +104,6 @@
         <p>&copy; 2024 Library Management System | Developed by Navneeth and Vikas</p>
     </footer>
 
-    <script>
-        // JavaScript for form submission
-        const form = document.getElementById('addBookForm');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Collect form data
-            const formData = {
-                title: document.getElementById('title').value,
-                author: document.getElementById('author').value,
-                genre: document.getElementById('genre').value,
-                isbn: document.getElementById('isbn').value,
-                publishedYear: document.getElementById('publishedYear').value,
-                description: document.getElementById('description').value
-            };
-
-            try {
-                // Send data to the backend
-                const response = await fetch('http://127.0.0.1:5000/add_book', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                if (response.ok) {
-                    alert('Book added successfully!');
-                    form.reset();
-                } else {
-                    alert('Failed to add book. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while adding the book.');
-            }
-        });
-    </script>
+    
 </body>
 </html>
