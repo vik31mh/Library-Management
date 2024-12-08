@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Book - Library Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Add New Book</h1>
+    </header>
+
+    <div class="container">
+        <form id="addBookForm">
+            <label for="title">Book Title</label>
+            <input type="text" id="title" name="title" placeholder="Enter book title" required>
+<br>
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author" placeholder="Enter author name" required>
+<br>
+            <label for="publishedYear">Published Year</label>
+            <input type="number" id="publishedYear" name="publishedYear" placeholder="Enter published year" required>
+<br>
+
+            <button type="submit">Add Book</button>
+        </form>
+    </div>
+<br>
+<br>
+<br>
+
+    <footer>
+        <p>&copy; 2024 Library Management System | Developed by Navneeth and Vikas</p>
+    </footer>
+
+    <script>
+        // JavaScript for form submission
+        const form = document.getElementById('addBookForm');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = {
+                title: document.getElementById('title').value,
+                author: document.getElementById('author').value,
+                genre: document.getElementById('genre').value,
+                isbn: document.getElementById('isbn').value,
+                publishedYear: document.getElementById('publishedYear').value,
+                description: document.getElementById('description').value
+            };
+
+            try {
+                // Send data to the backend
+                const response = await fetch('http://127.0.0.1:5000/add_book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    alert('Book added successfully!');
+                    form.reset();
+                } else {
+                    alert('Failed to add book. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the book.');
+            }
+        });
+    </script>
+</body>
+</html>
