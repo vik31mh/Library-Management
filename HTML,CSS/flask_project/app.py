@@ -56,7 +56,9 @@ def home():
     if 'user_number' not in session:  # Check if the user is logged in
         flash('You need to log in first!', 'danger')
         return redirect(url_for('display_login'))  # Redirect to login if not logged in
-    
+
+    user_number = session['user_number']  # Get the logged-in user's number
+
     # Get the count of books from the database
     conn = get_db_connect()
     cursor = conn.cursor()
@@ -65,18 +67,25 @@ def home():
     cursor.execute("SELECT COUNT(*) FROM books")
     book_count = cursor.fetchone()[0]
 
-    # Count the number of borrowed books (where returned = 0)
-    cursor.execute("SELECT COUNT(*) FROM borrowed_books WHERE returned = 0")
+    # Count the number of borrowed books for the logged-in user (where returned = 0)
+    cursor.execute(
+        "SELECT COUNT(*) FROM borrowed_books WHERE user_number = %s AND returned = 0",
+        (user_number,)
+    )
     borrowed_count = cursor.fetchone()[0]
 
-    # Count the number of returned books (where returned = 1)
-    cursor.execute("SELECT COUNT(*) FROM borrowed_books WHERE returned = 1")
+    # Count the number of returned books for the logged-in user (where returned = 1)
+    cursor.execute(
+        "SELECT COUNT(*) FROM borrowed_books WHERE user_number = %s AND returned = 1",
+        (user_number,)
+    )
     returned_count = cursor.fetchone()[0]
     
     cursor.close()
     conn.close()
 
     return render_template('home.html', book_count=book_count, borrowed_count=borrowed_count, returned_count=returned_count)
+
 
 
 
