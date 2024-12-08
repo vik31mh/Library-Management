@@ -315,32 +315,4 @@ def add_books():
         flash('You need to log in as an admin first!', 'danger')
         return redirect(url_for('admin_login'))
     
-    if request.method == 'POST':
-        # Handle form submission for adding books
-        book_name = request.form['book_name']
-        authors = request.form['authors']
-        publisher = request.form['publisher']
-
-        # Validate that all required fields are provided
-        if not book_name or not authors or not publisher:
-            flash('All fields are required!', 'danger')
-            return redirect(url_for('add_books'))
-        
-        conn = get_db_connect()
-        cursor = conn.cursor()
-
-        try:
-            cursor.execute("""
-                INSERT INTO books (book_name, authors, publisher)
-                VALUES (%s, %s, %s)
-            """, (book_name, authors, publisher))
-            conn.commit()
-            flash('Book added successfully!', 'success')
-        except mysql.connector.Error as err:
-            conn.rollback()
-            flash(f'Error adding book: {err}', 'danger')
-        finally:
-            cursor.close()
-            conn.close()
-
     return render_template('add_books.html')
