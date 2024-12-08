@@ -67,11 +67,22 @@
             background-color: #45a049;
         }
 
-        footer {
-            text-align: center;
+        
+
+        .flash-messages {
             margin-top: 20px;
             padding: 10px;
-            background-color: #007BFF;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .danger {
+            background-color: #f44336;
             color: white;
         }
     </style>
@@ -82,28 +93,34 @@
     </header>
 
     <div class="container">
-        <form id="addBookForm">
-            <label for="title">Book Title</label>
-            <input type="text" id="title" name="title" placeholder="Enter book title" required>
-<br>
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+                {% if category != 'success' %}
+                    <li class="flash {{ category }}">{{ message }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+     {% endif %}
+   {% endwith %}
+   
+        <!-- Form -->
+        <form action="/add_books" method="POST">
+            <label for="book_name">Book Name</label>
+            <input type="text" id="book_name" name="book_name" placeholder="Enter book name" required>
+        
             <label for="author">Author</label>
             <input type="text" id="author" name="author" placeholder="Enter author name" required>
-<br>
-            <label for="publishedYear">Published Year</label>
-            <input type="number" id="publishedYear" name="publishedYear" placeholder="Enter published year" required>
-<br>
-
+        
+            <label for="publisher">Publisher</label>
+            <input type="text" id="publisher" name="publisher" placeholder="Enter publisher name" required>
+        
             <button type="submit">Add Book</button>
         </form>
-    </div>
-<br>
-<br>
-<br>
-
-    <footer>
-        <p>&copy; 2024 Library Management System | Developed by Navneeth and Vikas</p>
-    </footer>
-
+        
     
+
 </body>
 </html>
