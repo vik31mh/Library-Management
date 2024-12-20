@@ -339,13 +339,6 @@ def add_books():
 # Route to display the User Details page
 @app.route('/user_details', methods=['GET'])
 def user_details():
-    if 'user_number' not in session:  # Check if the user is logged in
-        flash('You need to log in first!', 'danger')
-        return redirect(url_for('display_login'))  # Redirect to login if not logged in
-    
-    user_number = session['user_number']  # Get the logged-in user's number
-
-    # Fetch user details from both user_details and user_login tables
     conn = get_db_connect()
     cursor = conn.cursor(dictionary=True)
 
@@ -368,10 +361,7 @@ def user_details():
 # Route to display the Transaction page
 @app.route('/transaction', methods=['GET'])
 def book_records():
-    if 'user_number' not in session:  # Check if the user is logged in
-        flash('You need to log in first!', 'danger')
-        return redirect(url_for('display_login'))  # Redirect to login if not logged in
-
+    
     # Fetch book records from borrowed_books, books, and user_login tables
     conn = get_db_connect()
     cursor = conn.cursor(dictionary=True)
@@ -393,10 +383,7 @@ def book_records():
 # Route to display the Book Details page
 @app.route('/book_details', methods=['GET'])
 def book_details():
-    if 'user_number' not in session:  # Check if the user is logged in
-        flash('You need to log in first!', 'danger')
-        return redirect(url_for('display_login'))  # Redirect to login if not logged in
-
+    
     # Fetch book records from the books table
     conn = get_db_connect()
     cursor = conn.cursor(dictionary=True)

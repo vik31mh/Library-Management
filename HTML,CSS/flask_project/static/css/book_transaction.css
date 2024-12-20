@@ -73,6 +73,8 @@ nav a:hover {
 .main-content {
     flex: 1;
     padding: 0 20px; /* Padding for left and right */
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* Top bar */
